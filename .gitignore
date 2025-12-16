@@ -1,0 +1,12 @@
+# Dependencies
+/vendor/
+
+# PHPUnit cache
+.phpunit.result.cache
+
+# Local editor config (optional)
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
