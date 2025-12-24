@@ -3,31 +3,40 @@
 declare(strict_types=1);
 namespace Aoc2025\Day02;
 
-class Part1
+class Part2
 {
     public static function isValidId(string $id): bool
-    {   
-        if ($id[0] === '0') {
-            return false;
-        }
+    {
+        $length = strlen($id); 
+        $half = (int) ($length / 2); 
 
-        $length = strlen($id);
-      
-        if($length %2 !== 0){
-            return true;
-        }
-        else{
-            $half = $length / 2;
-            $first = substr ($id, 0, $half);
-            $second = substr ($id, $half);
+        for($i=$half; $i>0; $i--){
+
+            if($length % $i !== 0){
+                continue;
+            }
+
+            $allSame = true;
+            $parts = str_split($id,$i);
+            $firstChunk = $parts[0];
+
+            foreach($parts as $part){
+                if($part !== $firstChunk){
+                    $allSame = false;
+                    break;
+                }
+            }
             
-            return ($first == $second) ? false: true;
+            if($allSame)
+              return false;   
         }
 
+        return true;
     }
+    
 
     public static function invalidIdSumForRange(string $range): int
-    {
+    {        
         [$startStr, $endStr] = explode('-', $range, 2);
 
         $width = strlen($startStr);
@@ -38,7 +47,7 @@ class Part1
         $invalidIdSum = 0;
 
         for ($id = $start; $id <= $end; $id++) {
-            $idStr = str_pad((string) $id, $width, '0', STR_PAD_LEFT);
+            $idStr = (string) $id;
             if (self::isValidId($idStr) === false) {
                 $invalidIdSum = $invalidIdSum + (int) $idStr;
             }
