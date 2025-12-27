@@ -6,7 +6,7 @@ namespace Aoc2025\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Aoc2025\Day03\Part1;
-//use Aoc2025\Day02\Part2;
+use Aoc2025\Day03\Part2;
 
 final class Day03Test extends TestCase
 {
@@ -47,4 +47,30 @@ final class Day03Test extends TestCase
         $this->assertSame(357, $totalJoltage);
     }   
     
+    public function testPart2MaxJoltageForBank(): void
+    {
+        //Given a bank of batteries
+        //When I choose exactly 12 batteries without rearranging them
+        //Then it should return the maximum possible twelve-digit number formed by choosing any twelve digits in order (not necessarily adjacent)
+
+        $maxJoltage = Part2::maxJoltageForBank("987654321111111");
+        $this->assertSame(987654321111, $maxJoltage);
+
+        $maxJoltage = Part2::maxJoltageForBank("811111111111119");
+        $this->assertSame(811111111119, $maxJoltage);
+
+        $maxJoltage = Part2::maxJoltageForBank("234234234234278");
+        $this->assertSame(434234234278, $maxJoltage);
+
+        $maxJoltage = Part2::maxJoltageForBank("818181911112111");
+        $this->assertSame(888911112111, $maxJoltage);
+    }
+
+    public function testPart2TotalJoltage(): void
+    {
+        $input = "987654321111111\n811111111111119\n234234234234278\n818181911112111";
+        $totalJoltage = Part2::solve($input);
+        $this->assertSame(3121910778619, $totalJoltage);
+    }
+
 }
